@@ -20,12 +20,16 @@ from torch.nn.modules.module import _addindent
 
 # ------------------- normalizeString --------------------
 def normalizeString(s, uni2ascii=False, lowercase=False, strip=False, only_latin_letters=False, prefix_suffix=["|", "|"]):
+    #normalise Unicode string
     if uni2ascii:
         s = unicodedata.normalize('NFKD', str(s))
+    #convert string to lowercase
     if lowercase:
         s = s.lower()
+    #remove spaces at the beginning and end of string
     if strip:
         s = s.strip()
+    #regular expression to replace patterns in string
     if only_latin_letters:
         s = re.sub(r"([.!?])", r" \1", s)
         s = re.sub(r"[^a-zA-Z.!?]+", r" ", s)
